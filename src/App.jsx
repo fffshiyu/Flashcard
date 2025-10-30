@@ -14,11 +14,11 @@ const Card3DWrapper = memo(function Card3DWrapper({ position, cardData, onClick,
     if (!groupRef.current) return
     
     if (isSelected) {
-      // 选中时稍微放大并远离相机一些，跟随相机的 y 位置
+      // 选中时稍微放大并远离相机一些，跟随相机的 y 位置，不翻转
       const cameraY = state.camera.position.y
       targetPosition.current.set(0, cameraY, 2)
       targetScale.current = 1.3
-      targetRotation.current = Math.PI
+      targetRotation.current = 0 // 不翻转，保持正面
     } else {
       targetPosition.current.set(...position)
       targetScale.current = 1
@@ -70,34 +70,6 @@ const Card3DWrapper = memo(function Card3DWrapper({ position, cardData, onClick,
           <div className="cardTitle">{cardData.front}</div>
         </div>
       </Html>
-      
-      {/* 背面 - 深蓝色 - 只在选中时渲染 */}
-      {isSelected && (
-        <Html
-          transform
-          occlude={false}
-          distanceFactor={0.9}
-          position={[0, 0, -0.02]}
-          rotation={[0, Math.PI, 0]}
-          style={{
-            width: '800px',
-            height: '600px',
-            pointerEvents: 'none',
-          }}
-        >
-          <div 
-            className="cardFace back"
-            style={{ 
-              width: '800px',
-              height: '600px',
-              transform: 'none',
-            }}
-          >
-            <img src="star-outline.png" alt="star" className="starIcon" />
-            <div className="cardContent">{cardData.back}</div>
-          </div>
-        </Html>
-      )}
     </group>
   )
 })
