@@ -66,7 +66,7 @@ const Card3DWrapper = memo(function Card3DWrapper({ position, cardData, onClick,
             height: '600px',
           }}
         >
-          <img src="/Star outline (1).png" alt="star" className="starIcon" />
+          <img src="/star-outline-1.png" alt="star" className="starIcon" />
           <div className="cardTitle">{cardData.front}</div>
         </div>
       </Html>
@@ -93,7 +93,7 @@ const Card3DWrapper = memo(function Card3DWrapper({ position, cardData, onClick,
               transform: 'none',
             }}
           >
-            <img src="/Star outline.png" alt="star" className="starIcon" />
+            <img src="/star-outline.png" alt="star" className="starIcon" />
             <div className="cardContent">{cardData.back}</div>
           </div>
         </Html>
