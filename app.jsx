@@ -113,6 +113,7 @@ function App() {
   const [forgotten, setForgotten] = useState(new Set());
   const [removing, setRemoving] = useState(null);
   const [shakingKey, setShakingKey] = useState(0);
+  const [cardPosition, setCardPosition] = useState(null);
 
   const toggleCard = (id) => {
     setFlipped((prev) => {
@@ -126,7 +127,17 @@ function App() {
     });
   };
 
-  const openCard = (id) => {
+  const openCard = (id, event) => {
+    const cardElement = event.currentTarget;
+    const rect = cardElement.getBoundingClientRect();
+    
+    setCardPosition({
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height
+    });
+    
     setSelectedId(id);
     // 立即翻转到背面
     setFlipped((prev) => {
@@ -188,7 +199,7 @@ function App() {
             <div
               key={`${c.id}-${shakingKey}`}
               className={`card${selectedId === c.id ? ' hidden' : ''}`}
-              onClick={() => openCard(c.id)}
+              onClick={(e) => openCard(c.id, e)}
             >
               <div className="cardInner">
                 <div className="cardFace front">
@@ -205,11 +216,17 @@ function App() {
         </div>
       </div>
 
-      {selectedCard && (
+      {selectedCard && cardPosition && (
         <div className="overlay" onClick={closeCard}>
           <div
             className={`zoomCard${flipped.has(selectedCard.id) ? ' flipped' : ''}${removing === selectedCard.id ? ' removing' : ''}`}
             onClick={(e) => e.stopPropagation()}
+            style={{
+              '--start-top': `${cardPosition.top}px`,
+              '--start-left': `${cardPosition.left}px`,
+              '--start-width': `${cardPosition.width}px`,
+              '--start-height': `${cardPosition.height}px`
+            }}
           >
             <div className="cardInner">
               <div className="cardFace front">
