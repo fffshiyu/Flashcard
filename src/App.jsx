@@ -3,10 +3,6 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { RoundedBox, Html } from '@react-three/drei'
 import * as THREE from 'three'
 
-// 导入图片
-import starOutline1 from '/star-outline-1.png'
-import starOutline from '/star-outline.png'
-
 // 单个卡片的 3D 包装器 - 使用双面材质
 const Card3DWrapper = memo(function Card3DWrapper({ position, cardData, onClick, isSelected, isHidden, shakingKey }) {
   const groupRef = useRef()
@@ -70,7 +66,7 @@ const Card3DWrapper = memo(function Card3DWrapper({ position, cardData, onClick,
             height: '600px',
           }}
         >
-          <img src={starOutline1} alt="star" className="starIcon" />
+          <img src="star-outline-1.png" alt="star" className="starIcon" />
           <div className="cardTitle">{cardData.front}</div>
         </div>
       </Html>
@@ -97,7 +93,7 @@ const Card3DWrapper = memo(function Card3DWrapper({ position, cardData, onClick,
               transform: 'none',
             }}
           >
-            <img src={starOutline} alt="star" className="starIcon" />
+            <img src="star-outline.png" alt="star" className="starIcon" />
             <div className="cardContent">{cardData.back}</div>
           </div>
         </Html>
